@@ -199,6 +199,7 @@ def clicked(player_move):
     else:
         lbl_neural_network_prediction_m["foreground"] = "red"
 
+
 def knn_prediction(path_to_img, k):
     global knn
     img = cv2.imread(path_to_img)
