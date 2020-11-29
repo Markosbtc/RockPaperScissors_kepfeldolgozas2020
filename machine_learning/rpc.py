@@ -5,6 +5,7 @@ import numpy as np
 import glob
 import tkinter as tk
 import random
+from load_model import get_prediction
 
 
 # Képek beolvasása és feldolgozása adott könyvtárból
@@ -183,6 +184,20 @@ def clicked(player_move):
     else:
         lbl_prediction_m["foreground"] = "red"
 
+    neural_prediction_player = get_prediction(playerimgpath)
+
+    lbl_neural_network_prediction["text"] = f"Neuronháló jóslata: {get_move(neural_prediction_player)}"
+    if neural_prediction_player == player_move:
+        lbl_neural_network_prediction["foreground"] = "green"
+    else:
+        lbl_neural_network_prediction["foreground"] = "red"
+
+    neural_prediction_machine = get_prediction(machineimgpath)
+    lbl_neural_network_prediction_m["text"] = f"Neuronháló jóslata: {get_move(neural_prediction_machine)}"
+    if neural_prediction_machine == machine_move:
+        lbl_neural_network_prediction_m["foreground"] = "green"
+    else:
+        lbl_neural_network_prediction_m["foreground"] = "red"
 
 def knn_prediction(path_to_img, k):
     global knn
@@ -270,6 +285,8 @@ lbl_winner = tk.Label(content, image=winnerphoto)
 # labels
 lbl_prediction = tk.Label(content, font=('Verdana', 15), text="kNN jóslata: ")
 lbl_prediction_m = tk.Label(content, font=('Verdana', 15), text="kNN jóslata: ")
+lbl_neural_network_prediction = tk.Label(content, font=('Verdana', 15), text="Neuronháló jóslata: ")
+lbl_neural_network_prediction_m = tk.Label(content, font=('Verdana', 15), text="Neuronháló jóslata: ")
 lbl_actual = tk.Label(content, font=('Verdana', 15), text="Játékos választása: ")
 lbl_machine_move = tk.Label(content, font=('Verdana', 15), text="Gép választása: ")
 lbl_winner_move = tk.Label(content, font=('Verdana', 13), text="Nyertes: ")
@@ -287,6 +304,8 @@ lbl_winner.grid(column=1, row=4, columnspan=2, pady=5, padx=5)
 lbl_actual.grid(column=1, row=5, sticky="w")
 lbl_prediction.grid(column=1, row=6, sticky="w")
 lbl_prediction_m.grid(column=2, row=6, sticky="w")
+lbl_neural_network_prediction.grid(column=1, row=7, sticky="w")
+lbl_neural_network_prediction_m.grid(column=2, row=7, sticky="w")
 lbl_machine_move.grid(column=2, row=5, sticky="w")
 lbl_winner_move.grid(column=0, row=5, sticky="w")
 
